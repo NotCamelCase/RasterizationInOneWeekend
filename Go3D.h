@@ -8,7 +8,7 @@ namespace partII
 
 #define ARR_SIZE(x) (sizeof(x) / sizeof(x[0]))
 
-    // Silence macro redefinition warnings
+// Silence macro redefinition warnings
 #undef TO_RASTER
 // Transform a given vertex in clip-space [-w,w] to raster-space [0, {w|h}]
 #define TO_RASTER(v) glm::vec4((g_scWidth * (v.x + v.w) / 2), (g_scHeight * (v.w - v.y) / 2), v.z, v.w)
@@ -125,7 +125,7 @@ namespace partII
         glm::vec3 up(0, 1, 0);
 
         glm::mat4 view = glm::lookAt(eye, lookat, up);
-        glm::mat4 proj = glm::perspective(glm::radians(60.f), (float)g_scWidth / (float)g_scHeight, nearPlane, farPlane);
+        glm::mat4 proj = glm::perspective(glm::radians(60.f), static_cast<float>(g_scWidth) / static_cast<float>(g_scHeight), nearPlane, farPlane);
 
         // Loop over objects in the scene
         for (size_t n = 0; n < objects.size(); n++)

@@ -6,7 +6,7 @@ namespace partI
     static const auto g_scWidth = 1280u;
     static const auto g_scHeight = 720u;
 
-    // Transform a given vertex in NDC [-1,1] to raster-space [0, {w|h}]
+// Transform a given vertex in NDC [-1,1] to raster-space [0, {w|h}]
 #define TO_RASTER(v) glm::vec3((g_scWidth * (v.x + 1.0f) / 2), (g_scHeight * (v.y + 1.f) / 2), 1.0f)
 
     void OutputFrame(const std::vector<glm::vec3>& frameBuffer, const char* filename)

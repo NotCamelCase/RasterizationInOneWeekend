@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Go3D.h" />
+    <ClInclude Include="..\GoWild.h" />
     <ClInclude Include="..\HelloTriangle.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

@@ -4,3 +4,6 @@ Enter the world of rasterization with simple hands-on code: https://tayfunkayhan
 ![Part I: Hello, Triangle!](https://i.imgur.com/2jE16Md.png)
 
 ![Part II: Go 3D!](https://i.imgur.com/Trfnj4e.png)
+
+![Part III: Go, Wild!](https://i.imgur.com/E7HKk8p.jpg)
+![Part III: Go, Wild!](https://i.imgur.com/j3rRF7B.jpg)

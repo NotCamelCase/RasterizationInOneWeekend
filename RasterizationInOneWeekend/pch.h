@@ -4,6 +4,7 @@
 #include <vector>
 #include <cassert>
 #include <cstdint>
+#include <chrono>
 
 #define GLM_FORCE_INLINE
 #define GLM_FORCE_RADIANS
