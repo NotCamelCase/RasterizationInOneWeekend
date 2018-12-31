@@ -209,7 +209,7 @@ namespace partIII
         // Allocate and clear the frame buffer before starting to render to it
         std::vector<glm::vec3> frameBuffer(g_scWidth * g_scHeight, glm::vec3(0, 0, 0)); // clear color black = vec3(0, 0, 0)
 
-        // Allocate and clear the depth buffer (not z-buffer but 1/w-buffer in this part!) to 0.0
+        // Allocate and clear the depth buffer ro FLT_MAX as we utilize z values to resolve visibility now
         std::vector<float> depthBuffer(g_scWidth * g_scHeight, FLT_MAX);
 
         // We will have single giant index and vertex buffer to draw indexed meshes
@@ -340,8 +340,9 @@ namespace partIII
                 { v0Homogen.w, v1Homogen.w, v2Homogen.w},
             };
 
-            // If det(M) == 0.0f, we'd perform division by 0 when calculating the invert matrix,
-            // whereas (det(M) > 0) implies a back-facing triangle
+            // Singular vertex matrix (det(M) == 0.0) means that the triangle has zero area,
+            // which in turn means that it's a degenerate triangle which should not be rendered anyways,
+            // whereas (det(M) > 0) implies a back-facing triangle so we're going to skip such primitives
             float det = glm::determinant(M);
             if (det >= 0.0f)
                 continue;
@@ -393,7 +394,7 @@ namespace partIII
                         // w = 1/(1/w)
                         float w = 1.f / oneOverW;
 
-                        // Interpolate z value that will be used for depth test
+                        // Interpolate z that will be used for depth test
                         float zOverW = (Z.x * sample.x) + (Z.y * sample.y) + Z.z;
                         float z = zOverW * w;
 
@@ -402,17 +403,17 @@ namespace partIII
                             // Depth test passed; update depth buffer value
                             depthBuffer[x + y * g_scWidth] = z;
 
-                            // Perspective-correct interpolation of normals
+                            // Interpolate normal
                             float nxOverW = (PNX.x * sample.x) + (PNX.y * sample.y) + PNX.z;
                             float nyOverW = (PNY.x * sample.x) + (PNY.y * sample.y) + PNY.z;
                             float nzOverW = (PNZ.x * sample.x) + (PNZ.y * sample.y) + PNZ.z;
 
-                            // Perspective-correct interpolation of texture coordinates
+                            // Interpolate texture coordinates
                             float uOverW = (PUVS.x * sample.x) + (PUVS.y * sample.y) + PUVS.z;
                             float vOverW = (PUVT.x * sample.x) + (PUVT.y * sample.y) + PUVT.z;
 
                             // Final vertex attributes to be passed to FS
-                            glm::vec3 normal = glm::vec3(nxOverW, nyOverW, nzOverW) * w; // {nx/w, ny/w, nz/w} * w -> { nx, ny, nz}
+                            glm::vec3 normal = glm::vec3(nxOverW, nyOverW, nzOverW) * w; // {nx/w, ny/w, nz/w} * w -> {nx, ny, nz}
                             glm::vec2 texCoords = glm::vec2(uOverW, vOverW) * w; // {u/w, v/w} * w -> {u, v}
 
                             // Pass interpolated normal & texture coordinates to FS

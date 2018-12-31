@@ -159,8 +159,9 @@ namespace partII
                     { v0Homogen.w, v1Homogen.w, v2Homogen.w},
                 };
 
-                // If det(M) == 0.0f, we'd perform division by 0 when calculating the invert matrix,
-                // whereas (det(M) > 0) implies a back-facing triangle
+                // Singular vertex matrix (det(M) == 0.0) means that the triangle has zero area,
+                // which in turn means that it's a degenerate triangle which should not be rendered anyways,
+                // whereas (det(M) > 0) implies a back-facing triangle so we're going to skip such primitives
                 float det = glm::determinant(M);
                 if (det >= 0.0f)
                     continue;
