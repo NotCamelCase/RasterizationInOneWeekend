@@ -75,7 +75,7 @@ namespace partIII
         std::vector<tinyobj::material_t> materials;
         std::string err = "";
 
-        bool ret = tinyobj::LoadObj(&attribs, &shapes, &materials, &err, fileName, "../assets/", true /*triangulate*/);
+        bool ret = tinyobj::LoadObj(&attribs, &shapes, &materials, nullptr, &err, fileName, "../assets/", true /*triangulate*/, true /*default_vcols_fallback*/);
         if (ret)
         {
             // Process materials to load images
@@ -222,17 +222,30 @@ namespace partIII
         // All texture maps loaded. Every mesh will reference their texture map by name at draw time
         std::map<std::string, Texture*> textures;
 
+#if 1
         const auto fileName = "../assets/sponza.obj";
+#else
+        const auto fileName = "../assets/cube.obj";
+#endif
 
         // Load .OBJ file and process it to construct a scene of multiple meshes
         InitializeSceneObjects(fileName, primitives, vertexBuffer, indexBuffer, textures);
 
+#if 1
         // Build view & projection matrices (right-handed sysem)
         float nearPlane = 0.125f;
         float farPlane = 5000.f;
         glm::vec3 eye(0, -8.5, -5);
         glm::vec3 lookat(20, 5, 1);
         glm::vec3 up(0, 1, 0);
+#else
+        // Build view & projection matrices (right-handed sysem)
+        float nearPlane = 0.1f;
+        float farPlane = 100.f;
+        glm::vec3 eye(0, 3.75, 6.5);
+        glm::vec3 lookat(0, 0, 0);
+        glm::vec3 up(0, 1, 0);
+#endif
 
         glm::mat4 view = glm::lookAt(eye, lookat, up);
         view = glm::rotate(view, glm::radians(-30.f), glm::vec3(0, 1, 0));

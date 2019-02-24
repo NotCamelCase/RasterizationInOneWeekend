@@ -1,10 +1,10 @@
 #include "pch.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
+#include "../deps/stb/stb_image.h"
 
 #define TINYOBJLOADER_IMPLEMENTATION
-#include <tiny_obj_loader.h>
+#include "../deps/tinyobjloader/tiny_obj_loader.h"
 
 #include "../HelloTriangle.h"
 #include "../Go3D.h"
