@@ -39,18 +39,20 @@ namespace partII
 
         glm::mat4 M0 = glm::translate(identity, glm::vec3(0, 0, 2.f));
         M0 = glm::rotate(M0, glm::radians(45.f), glm::vec3(0, 1, 0));
-        objects.push_back(M0);
-
+        
         glm::mat4 M1 = glm::translate(identity, glm::vec3(-3.75f, 0, 0));
         M1 = glm::rotate(M1, glm::radians(30.f), glm::vec3(1, 0, 0));
-        objects.push_back(M1);
 
         glm::mat4 M2 = glm::translate(identity, glm::vec3(3.75f, 0, 0));
         M2 = glm::rotate(M2, glm::radians(60.f), glm::vec3(0, 1, 0));
-        objects.push_back(M2);
 
         glm::mat4 M3 = glm::translate(identity, glm::vec3(0, 0, -2.f));
         M3 = glm::rotate(M3, glm::radians(90.f), glm::vec3(0, 0, 1));
+
+        // Change the order of cubes being rendered, see how it changes with and without depth test
+        objects.push_back(M0);
+        objects.push_back(M1);
+        objects.push_back(M2);
         objects.push_back(M3);
     }
 

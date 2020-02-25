@@ -14,35 +14,35 @@ namespace partIII
     // Used for texture mapping
     struct Texture
     {
-        stbi_uc* m_Data = nullptr;
-        int32_t m_Width = -1;
-        int32_t m_Height = -1;
-        int32_t m_NumChannels = -1;
+        stbi_uc*    m_Data = nullptr;
+        int32_t     m_Width = -1;
+        int32_t     m_Height = -1;
+        int32_t     m_NumChannels = -1;
     };
 
     // Vertex data to be fed into each VS invocation as input
     struct VertexInput
     {
-        glm::vec3 Pos;
-        glm::vec3 Normal;
-        glm::vec2 TexCoords;
+        glm::vec3   Pos;
+        glm::vec3   Normal;
+        glm::vec2   TexCoords;
     };
 
     // Vertex Shader payload, which will be passed to each FS invocation as input
     struct FragmentInput
     {
-        glm::vec3 Normal;
-        glm::vec2 TexCoords;
+        glm::vec3   Normal;
+        glm::vec2   TexCoords;
     };
 
     // Indexed mesh
     struct Mesh
     {
         // Offset into the global index buffer
-        uint32_t m_IdxOffset = 0u;
+        uint32_t    m_IdxOffset = 0u;
 
         // How many indices this mesh contains. Number of triangles therefore equals (m_IdxCount / 3)
-        uint32_t m_IdxCount = 0u;
+        uint32_t    m_IdxCount = 0u;
 
         // Texture map from material
         std::string m_DiffuseTexName;
